@@ -2,7 +2,14 @@
 
 import * as checker from 'license-checker'
 
-const dissallowedLicense = ["GPL-3.0-or-later", "GPL-3.0-only", "GPL-2.0-or-later", "GPL-2.0-only", "GPL-1.0-or-later", "GPL-1.0-only", "Artistic-1.0",
+const dissallowedLicense = [
+    "GPL-3.0-or-later",
+    "GPL-3.0-only",
+    "GPL-2.0-or-later",
+    "GPL-2.0-only",
+    "GPL-1.0-or-later",
+    "GPL-1.0-only",
+    "Artistic-1.0",
     "Artistic-1.0-cl8",
     "Artistic-1.0-Perl",
     "Artistic-2.0",
@@ -32,7 +39,6 @@ const dissallowedLicense = ["GPL-3.0-or-later", "GPL-3.0-only", "GPL-2.0-or-late
     "PHP-3.01",
     "NPL",
     "QPL-1.0",
-
 ]
 
 checker.init({start: './'}, function(err, packages) {
@@ -43,11 +49,9 @@ checker.init({start: './'}, function(err, packages) {
         packageKeys.forEach((key) => {
             const lic = packages[key].licenses
             if (dissallowedLicense.includes(lic)){
-                throw Error(`Package ${key} (${packages[key].repository}) use the ${lic} license which is not allowed`)
+                throw Error(`Package ${key} (${packages[key].repository}) uses the ${lic} license which is not allowed`)
             }
-
         })
-
         console.log('All license where checked and are allowed!')
     }
 })
