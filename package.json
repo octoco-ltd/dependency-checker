@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/octoco-ltd/dependency-checker/issues"
   },
-  "homepage": "https://github.com/octoco-ltd/dependency-checker#readme"
+  "homepage": "https://github.com/octoco-ltd/dependency-checker#readme",
+  "dependencies": {
+    "license-checker": "^25.0.1"
+  }
 }
