@@ -51,7 +51,10 @@ const allowedLicenses = [
     "W3C",
     "Unlicense",
     "WTFPL",
-    "Zlib"
+    "Zlib",
+    "CC-BY-3.0",
+    "CC0-1.0",
+    "(MIT AND CC-BY-3.0)"
 ]
 
 const coyleftModificationLicenses = [
@@ -69,12 +72,11 @@ checker.init({ start: './' }, function (err, packages) {
         packageKeys.forEach((key) => {
             const lic = packages[key].licenses
             if (!allowedLicenses.includes(lic)) {
-                console.log(packages[key])
-                throw Error(`Package ${key} (${packages[key].repository}) uses the ${lic} license which is not allowed`)
+                throw Error(`Package ${key} (${packages[key].repository}) uses the ${lic} license which is not allowed. Path to package: ${packages[key].path}`)
             }
 
             if (coyleftModificationLicenses.includes(lic)) {
-                console.warn(`Package ${key} (${packages[key].repository}) uses the ${lic} license which is copylefted for modifications!`)
+                console.warn(`Package ${key} (${packages[key].repository}) uses the ${lic} license which is copylefted for modifications! Path to package: ${packages[key].path}`)
             }
         })
         console.log('All license where checked and are allowed!')
