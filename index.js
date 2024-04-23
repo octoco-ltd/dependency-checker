@@ -68,6 +68,7 @@ checker.init({ start: './' }, function (err, packages) {
         packageKeys.forEach((key) => {
             const lic = packages[key].licenses
             if (!allowedLicenses.includes(lic)) {
+                console.log(packages[key])
                 throw Error(`Package ${key} (${packages[key].repository}) uses the ${lic} license which is not allowed`)
             }
 
