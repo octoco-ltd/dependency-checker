@@ -53,6 +53,7 @@ const allowedLicenses = [
     "WTFPL",
     "Zlib",
     "CC-BY-3.0",
+    "CC-BY-4.0",
     "CC0-1.0",
     "(MIT AND CC-BY-3.0)",
     "Python-2.0"
