@@ -71,13 +71,18 @@ checker.init({ start: './' }, function (err, packages) {
         const packageKeys = Object.keys(packages)
         packageKeys.forEach((key) => {
             const lic = packages[key].licenses
-            if (!allowedLicenses.includes(lic)) {
-                throw Error(`Package ${key} (${packages[key].repository}) uses the ${lic} license which is not allowed. Path to package: ${packages[key].path}`)
+
+            // We don't want to evaluate our own package.json
+            if (packages[key].path !== './') {
+                if (!allowedLicenses.includes(lic)) {
+                    throw Error(`Package ${key} (${packages[key].repository}) uses the ${lic} license which is not allowed. Path to package: ${packages[key].path}`)
+                }
+
+                if (coyleftModificationLicenses.includes(lic)) {
+                    console.warn(`Package ${key} (${packages[key].repository}) uses the ${lic} license which is copylefted for modifications! Path to package: ${packages[key].path}`)
+                }
             }
 
-            if (coyleftModificationLicenses.includes(lic)) {
-                console.warn(`Package ${key} (${packages[key].repository}) uses the ${lic} license which is copylefted for modifications! Path to package: ${packages[key].path}`)
-            }
         })
         console.log('All license where checked and are allowed!')
     }
