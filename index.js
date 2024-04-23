@@ -44,6 +44,7 @@ const allowedLicenses = [
     "LPPL-1.3a",
     "LPPL-1.3c",
     "MIT",
+    "MIT*",
     "PSF-2.0",
     "W3C-19980720",
     "W3C-20150513",
@@ -59,7 +60,7 @@ const coyleftModificationLicenses = [
     "EPL-1.0",
 ]
 
-checker.init({start: './'}, function(err, packages) {
+checker.init({ start: './' }, function (err, packages) {
     if (err) {
         console.error(err)
     } else {
