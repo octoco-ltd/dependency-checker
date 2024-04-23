@@ -61,6 +61,7 @@ const coyleftModificationLicenses = [
 ]
 
 checker.init({ start: './' }, function (err, packages) {
+    console.log(packages)
     if (err) {
         console.error(err)
     } else {
