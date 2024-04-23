@@ -54,7 +54,8 @@ const allowedLicenses = [
     "Zlib",
     "CC-BY-3.0",
     "CC0-1.0",
-    "(MIT AND CC-BY-3.0)"
+    "(MIT AND CC-BY-3.0)",
+    "Python-2.0"
 ]
 
 const coyleftModificationLicenses = [
@@ -64,14 +65,12 @@ const coyleftModificationLicenses = [
 ]
 
 checker.init({ start: './' }, function (err, packages) {
-    console.log(packages)
     if (err) {
         console.error(err)
     } else {
         const packageKeys = Object.keys(packages)
         packageKeys.forEach((key) => {
             const lic = packages[key].licenses
-
             // We don't want to evaluate our own package.json
             if (packages[key].path !== './') {
                 if (!allowedLicenses.includes(lic)) {
