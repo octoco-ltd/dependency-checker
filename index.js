@@ -2,43 +2,61 @@
 
 import * as checker from 'license-checker'
 
-const dissallowedLicense = [
-    "GPL-3.0-or-later",
-    "GPL-3.0-only",
-    "GPL-2.0-or-later",
-    "GPL-2.0-only",
-    "GPL-1.0-or-later",
-    "GPL-1.0-only",
-    "Artistic-1.0",
-    "Artistic-1.0-cl8",
-    "Artistic-1.0-Perl",
-    "Artistic-2.0",
-    "ClArtistic",
+const allowedLicenses = [
+    "AFL-3.0",
+    "AFL-2.1",
+    "AFL-2.0",
+    "AFL-1.2",
+    "AFL-1.1",
+    "Apache-2.0",
+    "Apache-1.1",
+    "Apache-1.0",
+    "APSL-1.0",
+    "APSL-1.1",
+    "APSL-1.2",
+    "APSL-2.0",
+    "Beerware",
+    "BSD-4-Clause",
+    "BSD-3-Clause",
+    "BSD-2-Clause",
+    "BSD-1-Clause",
+    "0BSD",
     "CC BY",
-    "CC BY-SA",
-    "CC BY-NC",
-    "CC BY-NC-SA",
-    "CC BY-ND",
-    "CC BY-NC-ND",
+    "CC0",
+    "CECILL-1.0",
+    "CECILL-1.1",
+    "CECILL-2.0",
+    "CECILL-2.1",
+    "CECILL-B",
+    "CECILL-C",
+    "CDDL-1.1",
+    "CDDL-1.0",
+    "CPL-1.0", // Modification is copylefted!
+    "EPL-2.0", // Modification is copylefted!
+    "EPL-1.0", // Modification is copylefted!
+    "ECL-1.0",
+    "ECL-2.0",
+    "BSD-2-Clause",
+    "ISC",
+    "LPPL-1.0",
+    "LPPL-1.1",
+    "LPPL-1.2",
+    "LPPL-1.3a",
+    "LPPL-1.3c",
+    "MIT",
+    "PSF-2.0",
+    "W3C-19980720",
+    "W3C-20150513",
+    "W3C",
+    "Unlicense",
+    "WTFPL",
+    "Zlib"
+]
+
+const coyleftModificationLicenses = [
+    "CPL-1.0",
     "EPL-2.0",
     "EPL-1.0",
-    "CPL-1.0",
-    "EUPL-1.0", "EUPL-1.1",
-    "AGPL-3.0-or-later",
-    "AGPL-3.0-only",
-    "LGPL-3.0-or-later",
-    "LGPL-3.0-only",
-    "LGPL-2.1-or-later",
-    "LGPL-2.1-only",
-    "LGPL-2.0-or-later",
-    "LGPL-2.0-only",
-    "IPL-1.0",
-    "Ms-RSL",
-    "Ms-LRL",
-    "Ms-LPL",
-    "PHP-3.01",
-    "NPL",
-    "QPL-1.0",
 ]
 
 checker.init({start: './'}, function(err, packages) {
@@ -48,8 +66,12 @@ checker.init({start: './'}, function(err, packages) {
         const packageKeys = Object.keys(packages)
         packageKeys.forEach((key) => {
             const lic = packages[key].licenses
-            if (dissallowedLicense.includes(lic)){
+            if (!allowedLicenses.includes(lic)) {
                 throw Error(`Package ${key} (${packages[key].repository}) uses the ${lic} license which is not allowed`)
+            }
+
+            if (coyleftModificationLicenses.includes(lic)) {
+                console.warn(`Package ${key} (${packages[key].repository}) uses the ${lic} license which is copylefted for modifications!`)
             }
         })
         console.log('All license where checked and are allowed!')
