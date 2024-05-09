@@ -101,6 +101,7 @@ const cliTool = async () => {
                     if (!allowedLicenses.includes(lic)) {
                         // We don't want to evaluate our own package.json
                         const answer = await promptForPackage(key, lic)
+                        console.log('\n')
                         if (answer !== 'Y'){
                             throw Error(`Package ${key} (${packages[key].repository}) uses the ${lic} license which is not allowed. Path to package: ${packages[key].path}`)
                         }
