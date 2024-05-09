@@ -60,35 +60,7 @@ const allowedLicenses = [
     "Python-2.0"
 ]
 
-const coyleftModificationLicenses = [
-    "CPL-1.0",
-    "EPL-2.0",
-    "EPL-1.0",
-]
-
 const cliTool = async () => {
-    // checker.init({ start: './' }, async function (err, packages) {
-    //     if (err) {
-    //         console.error(err)
-    //     } else {
-    //         const packageKeys = Object.keys(packages)
-    //         packageKeys.forEach((key) => {
-    //             const lic = packages[key].licenses
-    //             // We don't want to evaluate our own package.json
-    //             if (packages[key].path !== './') {
-    //                 if (!allowedLicenses.includes(lic)) {
-    //                     // We don't want to evaluate our own package.json
-    //                     const answer = await promptForPackage(key, lic)
-    //                     console.log(answer)
-    //                     throw Error(`Package ${key} (${packages[key].repository}) uses the ${lic} license which is not allowed. Path to package: ${packages[key].path}`)
-    //                 }
-    //             }
-    //
-    //         })
-    //         console.log('All license where checked and are allowed!')
-    //     }
-    // })
-
     checker.init({ start: './' }, async function (err, packages) {
         if (err) {
             console.error(err)
@@ -116,7 +88,10 @@ const cliTool = async () => {
     console.info('Checking for LICENSE file in repo')
     if (!fs.existsSync('./LICENSE')) {
         fs.appendFile('LICENSE', 'Copyright (c) 2024 Octoco Consulting (Pty) Ltd. All rights reserved.', function (err) {
-            if (err) throw err;
+            if (err) {
+                console.error(err)
+                throw err;
+            }
             console.info('LICENSE file created!');
         })
     }

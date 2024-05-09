@@ -1,10 +1,9 @@
 # dependency-checker
-This is Octoco's dependency license checker. It is used to check the licenses of all the dependencies and their dependencies in our NodeJS projects.
+This is Octoco's dependecy license checker. It runs through the license of all the modules used in your repository and will highlight any non permissive licenses. For more information on the different license visit [this](https://en.wikipedia.org/wiki/Comparison_of_free_and_open-source_software_licenses) link.
 
-To add the CLI run `npm install -g git+https://github.com/octoco-ltd/dependency-checker`
+## Installation
+The CLI tool can be installed globally using `npm install -g git+https://github.com/octoco-ltd/dependency-checker.git`.
 
-You can then run the CLI using `npx dependency-checker`
-
-This can be done in your CI/CD pipeline or on your local machine. It will determine all the list of licenses that your dependencies use and raise an error if any of those license are restrictive or copyleft.
-
-For any queries contact `james@octoco.ltd`
+## Usage
+To run the dependency checker CD into the directory of your app to the level of the `package.json`. In your terminal run `npx dependency-checker`. You will be prompted if any erroneous licenses are found and a LICENSE file will be created if it does not already exists in you repository. You need to run the dependency checker for each directory containing a `package.json` file
+ 
