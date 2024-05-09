@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import * as checker from 'license-checker'
+import {promptForPackage} from "./prompt-for-package.js";
 
 const allowedLicenses = [
     "AFL-3.0",
@@ -55,7 +56,6 @@ const allowedLicenses = [
     "CC-BY-3.0",
     "CC-BY-4.0",
     "CC0-1.0",
-    "(MIT AND CC-BY-3.0)",
     "Python-2.0"
 ]
 
@@ -65,26 +65,51 @@ const coyleftModificationLicenses = [
     "EPL-1.0",
 ]
 
-checker.init({ start: './' }, function (err, packages) {
-    if (err) {
-        console.error(err)
-    } else {
-        const packageKeys = Object.keys(packages)
-        packageKeys.forEach((key) => {
-            const lic = packages[key].licenses
-            // We don't want to evaluate our own package.json
-            if (packages[key].path !== './') {
-                if (!allowedLicenses.includes(lic)) {
-                    throw Error(`Package ${key} (${packages[key].repository}) uses the ${lic} license which is not allowed. Path to package: ${packages[key].path}`)
+const cliTool = async () => {
+    // checker.init({ start: './' }, async function (err, packages) {
+    //     if (err) {
+    //         console.error(err)
+    //     } else {
+    //         const packageKeys = Object.keys(packages)
+    //         packageKeys.forEach((key) => {
+    //             const lic = packages[key].licenses
+    //             // We don't want to evaluate our own package.json
+    //             if (packages[key].path !== './') {
+    //                 if (!allowedLicenses.includes(lic)) {
+    //                     // We don't want to evaluate our own package.json
+    //                     const answer = await promptForPackage(key, lic)
+    //                     console.log(answer)
+    //                     throw Error(`Package ${key} (${packages[key].repository}) uses the ${lic} license which is not allowed. Path to package: ${packages[key].path}`)
+    //                 }
+    //             }
+    //
+    //         })
+    //         console.log('All license where checked and are allowed!')
+    //     }
+    // })
+
+    checker.init({ start: './' }, async function (err, packages) {
+        if (err) {
+            console.error(err)
+        } else {
+            const packageKeys = Object.keys(packages)
+            for (const key of packageKeys) {
+                const lic = packages[key].licenses
+                // We don't want to evaluate our own package.json
+                if (packages[key].path !== './') {
+                    if (!allowedLicenses.includes(lic)) {
+                        // We don't want to evaluate our own package.json
+                        const answer = await promptForPackage(key, lic)
+                        if (answer !== 'Y'){
+                            throw Error(`Package ${key} (${packages[key].repository}) uses the ${lic} license which is not allowed. Path to package: ${packages[key].path}`)
+                        }
+                    }
                 }
 
-                if (coyleftModificationLicenses.includes(lic)) {
-                    console.warn(`Package ${key} (${packages[key].repository}) uses the ${lic} license which is copylefted for modifications! Path to package: ${packages[key].path}`)
-                }
             }
+            console.log('All license where checked and are allowed!')
+        }
+    })
+}
 
-        })
-        console.log('All license where checked and are allowed!')
-    }
-})
-
+cliTool()

@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/octoco-ltd/dependency-checker#readme",
   "dependencies": {
+    "inquirer": "^9.2.20",
     "license-checker": "^25.0.1"
   }
 }
