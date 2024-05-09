@@ -2,6 +2,7 @@
 
 import * as checker from 'license-checker'
 import {promptForPackage} from "./prompt-for-package.js";
+import fs from 'fs'
 
 const allowedLicenses = [
     "AFL-3.0",
@@ -110,6 +111,15 @@ const cliTool = async () => {
             console.log('All license where checked and are allowed!')
         }
     })
+
+    console.info('Checking for LICENSE file in repo')
+    if (!fs.existsSync('./LICENSE')) {
+        fs.appendFile('LICENSE', 'Copyright (c) 2024 Octoco Consulting (Pty) Ltd. All rights reserved.', function (err) {
+            if (err) throw err;
+            console.info('LICENSE file created!');
+        })
+    }
+
 }
 
 cliTool()

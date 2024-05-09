@@ -3,19 +3,16 @@
   "version": "1.0.0",
   "description": "Octoco's dependency license checker",
   "main": "index.js",
+  "license": "UNLICENSED",
   "type": "module",
   "bin": {
     "dependency-checker": "index.js"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/octoco-ltd/dependency-checker.git"
   },
   "author": "James de Villiers",
-  "license": "ISC",
   "bugs": {
     "url": "https://github.com/octoco-ltd/dependency-checker/issues"
   },
