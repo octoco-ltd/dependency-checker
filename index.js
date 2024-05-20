@@ -99,3 +99,5 @@ const cliTool = async () => {
         console.error(err);
     }
 };
+
+cliTool();
