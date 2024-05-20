@@ -19,6 +19,7 @@
   "homepage": "https://github.com/octoco-ltd/dependency-checker#readme",
   "dependencies": {
     "inquirer": "^9.2.20",
-    "license-checker": "^25.0.1"
+    "license-checker": "^25.0.1",
+    "prettier": "^3.2.5"
   }
 }
